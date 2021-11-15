@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('tasks');
+    $tasks = Task::orderBy('created_at', 'asc')->get();
+    //利用model Task由DB的tasks資料表取出資料並排序
+    //暫存 $tasks
+    //可簡化為 $tasks= Task->get();
+    return view('tasks', [ 'tasks' => $tasks ]);
 });
 
 Route::post('/task', function (Request $request) {
